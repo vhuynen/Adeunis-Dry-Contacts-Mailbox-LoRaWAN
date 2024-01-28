@@ -1,3 +1,3 @@
-# Adeunis-Dry-Contacts-Mailbox-LoRaWan
+# Adeunis-Dry-Contacts-Mailbox-LoRaWAN
 
 The project is currently in progress...
