@@ -1,0 +1,18 @@
+#-----------------input boolean-----------------
+input_boolean:
+  mailbox_present:
+    name: Mailbox Present
+    icon: mdi:mailbox
+  mailbox_status:
+    name: Mailbox Status
+    icon: mdi:battery-high
+  mailbox_keep_alive:
+    name: Mailbox Keep Alive
+    icon: mdi:heart-pulse
+#-----------------input datatime-----------------
+input_datetime:
+  mailbox_arrived:
+    name: Mailbox Arrived
+    has_date: true
+    has_time: true    
+    icon: mdi:clock-time-three-outline

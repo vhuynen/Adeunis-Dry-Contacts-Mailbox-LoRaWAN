@@ -1,0 +1,66 @@
+type: custom:button-card
+entity: input_boolean.mailbox_present
+show_state: false
+name: Mailbox
+state:
+  - value: 'on'
+    name: |-
+      [[[
+         var date = new Date(states["input_datetime.mailbox_arrived"].state);
+         return 'Mail delivered at ' 
+             + date.toLocaleTimeString('fr-FR')
+             + '<br/>on ' +date.toLocaleDateString('fr-FR');
+      ]]]
+    icon: mdi:mailbox-up
+  - value: 'off'
+    name: No Mail
+    icon: mdi:mailbox
+    color: green
+styles:
+  grid:
+    - grid-template-areas: '"title title" "i i" "n n" "keep-alive status"'
+    - grid-template-columns: 1fr 1fr
+    - grid-template-rows: min-content min-content min-content min-content
+  card: null
+  name:
+    - font-size: 20px
+    - color: white
+    - align-self: middle
+    - padding-bottom: 4px
+  icon:
+    - height: 90px
+  custom_fields:
+    status:
+      - height: 40px
+      - justify-self: start
+      - padding-left: 10px
+      - '--color-icon': >-
+          [[[ if (states["input_boolean.mailbox_status"].state == "on") return
+          "red"; return "green"]]]
+    keep-alive:
+      - height: 40px
+      - justify-self: end
+      - padding-right: 10px
+      - '--color-icon': >-
+          [[[ if (states["input_boolean.mailbox_keep_alive"].state == "on")
+          return "green"; return "red"]]]
+    title:
+      - font-size: 30px
+      - color: white
+custom_fields:
+  keep-alive: |
+    [[[
+      return `<ha-icon 
+      style="width: 40px; height: 40px; color: var(--color-icon);"
+      icon="mdi:heart-pulse"></ha-icon>`
+    ]]]
+  status: |
+    [[[
+      return `<ha-icon 
+      style="width: 40px; height: 40px; color: var(--color-icon);"
+      icon="mdi:battery-high"></ha-icon>`
+    ]]]
+  title: |
+    [[[
+      return `<span>Mailbox</span>`
+    ]]]
