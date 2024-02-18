@@ -12,7 +12,7 @@ In other words, this module gathers all the requirements I need for this project
   - [Table of Contents](#table-of-contents)
   - [Architecture Schema](#architecture-schema)
   - [Electic Schema](#electic-schema)
-  - [Settings](#settings)
+  - [Configuration](#configuration)
     - [Helium Console](#helium-console)
       - [Register the device](#register-the-device)
       - [Decoder Function](#decoder-function)
@@ -63,7 +63,7 @@ Two `normally closed` reed switches are used to detect if a door has been opened
 
 ![electric](./docs/gallery/Electric-Schema.png)
 
-## Settings
+## Configuration
 
 ### Helium Console
 
