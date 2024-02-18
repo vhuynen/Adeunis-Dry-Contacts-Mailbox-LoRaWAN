@@ -79,7 +79,7 @@ Adeunis provides [JavaScript libraries](https://codec-adeunis.com/download) to d
 
 You will need to forward the data from the mailbox to [AWS Integration](https://docs.helium.com/console/integrations/aws-iot-core/).
 
-![flows](./docs/gallery/helium-flow.png)
+![flows](./docs/gallery/Helium-Flow.png)
 
 ### Adeunis Dry Contacts V1
 
@@ -147,7 +147,7 @@ Four [entities](./source/Home%20Assistant/configuration.yaml) have been added to
 
 Each data frame retrieved from Helium via IoT Core is performed by a specific [Node-Red flow](./source/Node-Red/mailbox-node-red-flow.json). You can customize the flow according to your own needs.
 
-![mailbox-nore-red-flow](./source/Node-Red/mailbox-node-red-flow.png)
+![mailbox-nore-red-flow](./docs/gallery/mailbox-node-red-flow.png)
 
 #### Dry Contacts Data - Frame 0x40
 
@@ -157,11 +157,15 @@ Based on the output of the join-wait node, the flow updates the state of the `ma
 
 #### Keep Alive - Frame 0x30
 
+The Dry contact is configured to send a healty report at Home Assistant every 24 hours (1440 mins) :
 
+- When a frame is received, the `mailbox_keep_alive` entity is set to `true`, and a countdown of 1438 minutes is triggered to set the entity to `false` just a few minutes before the next Keep Alive frame. This allows us to detect if the module is still alive. This tip allows for updating the entity every day, as Home Assistant doesn’t update the last_changed attribute of the entity if the state remains the same.
+
+- When a the frame is received, the `mailbox_status` entity is set to `false`. If the payload contains any issues (hardware or low battery), then the entity is set to `true` indicating trouble with the module. If an issue is detected, a health report is sent via Telegram.
 
 ### Dashboard
 
-A [custom button](./source/Home%20Assistant/mailbox-custom-button.yaml) allows you to quickly view the state of the mailbox. The heart pulse icon allows you to check that the module is still functioning within the last 24 hours, and the battery icon allows you to verify that there are no hardware or battery issues.
+A [custom button](./source/Home%20Assistant/mailbox-custom-button.yaml) allows you to quickly view the state of the mailbox. The heart pulse icon allows you to check that the module is still functioning since the last 24 hours, and the battery icon allows you to verify that there are no hardware or battery issues.
 
 Below, the visual of the custom button :
 
@@ -174,4 +178,4 @@ Below, the visual of the custom button :
 - Official Adeunis Dry Contact user guide : [User Guide DRY CONTACTS V1.2.0](https://adeunis.freshdesk.com/en/support/solutions/articles/22000242785-user-guide-dry-contacts-v1-2-0)
 - Download LoRaWAN [User Guide DRY CONTACTS V1.2.0](https://adeunis.freshdesk.com/helpdesk/attachments/22041357409)
 
-If you like my work, please don’t hesitate to star ⭐ my project and feel free to provide your feedback !
+If you appreciate this project, please don’t hesitate to star ⭐ it and feel free to provide your feedback !
