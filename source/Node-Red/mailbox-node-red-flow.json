@@ -1,0 +1,812 @@
+[
+    {
+        "id": "ce566b7b35f3bf90",
+        "type": "tab",
+        "label": "Mailbox",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0a6f4941d224a404",
+        "type": "join-wait",
+        "z": "ce566b7b35f3bf90",
+        "name": "",
+        "paths": "[\"letter\", \"parcel\"]",
+        "pathsToExpire": "",
+        "useRegex": false,
+        "warnUnmatched": true,
+        "pathTopic": "paths",
+        "pathTopicType": "msg",
+        "correlationTopic": "",
+        "correlationTopicType": "undefined",
+        "timeout": "60",
+        "timeoutUnits": "1000",
+        "exactOrder": "false",
+        "firstMsg": "true",
+        "mapPayload": "false",
+        "disableComplete": false,
+        "persistOnRestart": false,
+        "x": 660,
+        "y": 220,
+        "wires": [
+            [
+                "64f4fb2033d87c3d",
+                "f6378aae80528b7b",
+                "673f9c24b68cf1dc"
+            ],
+            [
+                "18b21759bea99403",
+                "ce76e3a17ae1b1a9",
+                "07930195c0d23441"
+            ]
+        ]
+    },
+    {
+        "id": "fb7cbe954d46f53c",
+        "type": "mqtt in",
+        "z": "ce566b7b35f3bf90",
+        "name": "MQTT Mailbox Topic",
+        "topic": "arn:aws:iot:<region>:<account>:thing/Home_Assistant/outdoor/mailbox",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "40bd7ac7c7c24194",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "271f7980d09b542c",
+                "ed50c15a8d5f3d84"
+            ]
+        ]
+    },
+    {
+        "id": "01b20bf6b00891c2",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Letter",
+        "property": "payload.decoded.payload.data.bytes.channelA.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "682f41ab7adc29e3"
+            ]
+        ]
+    },
+    {
+        "id": "682f41ab7adc29e3",
+        "type": "change",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set paths to Letter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "paths",
+                "pt": "msg",
+                "to": "letter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "0a6f4941d224a404"
+            ]
+        ]
+    },
+    {
+        "id": "12fbd75442c1c116",
+        "type": "change",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set paths to parcel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "paths",
+                "pt": "msg",
+                "to": "parcel",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "0a6f4941d224a404"
+            ]
+        ]
+    },
+    {
+        "id": "bf9dc6e6a95f20d1",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Parcel",
+        "property": "payload.decoded.payload.data.bytes.channelB.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "12fbd75442c1c116"
+            ]
+        ]
+    },
+    {
+        "id": "271f7980d09b542c",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "0x40 Dry Contacts data",
+        "property": "payload.decoded.payload.data.bytes.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0x40 Dry Contacts data",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "01b20bf6b00891c2",
+                "bf9dc6e6a95f20d1"
+            ]
+        ]
+    },
+    {
+        "id": "18b21759bea99403",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Parcel",
+        "property": "paths.parcel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 300,
+        "wires": [
+            [
+                "6fafdd107e1f9964",
+                "64070413d65b0b12",
+                "851ac9a06976a625"
+            ]
+        ]
+    },
+    {
+        "id": "ce76e3a17ae1b1a9",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Letter",
+        "property": "paths.letter",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 240,
+        "wires": [
+            [
+                "1d767441cba4751d",
+                "8813de7d4d1e5ec5",
+                "851ac9a06976a625"
+            ]
+        ]
+    },
+    {
+        "id": "1d767441cba4751d",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set Message Letter",
+        "func": "msg.payload = {\n chatId: global.get('telegram_chat_id'),\n type: 'message',\n    content: '📬 You have got office letter !'\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 360,
+        "wires": [
+            [
+                "159db5ec01c87d37"
+            ]
+        ]
+    },
+    {
+        "id": "6fafdd107e1f9964",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set Message Parcel",
+        "func": "msg.payload = {\n chatId: global.get('telegram_chat_id'),\n type: 'message',\n    content: '📫 You have got parcel !'\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 460,
+        "wires": [
+            [
+                "159db5ec01c87d37"
+            ]
+        ]
+    },
+    {
+        "id": "64f4fb2033d87c3d",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set Message Fetch Mail",
+        "func": "msg.payload = {\n chatId: global.get('telegram_chat_id'),\n type: 'message',\n    content: '📭 Letters or parcels have been fetch !'\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 280,
+        "wires": [
+            [
+                "159db5ec01c87d37"
+            ]
+        ]
+    },
+    {
+        "id": "159db5ec01c87d37",
+        "type": "telegram sender",
+        "z": "ce566b7b35f3bf90",
+        "name": "Telegram Notifier",
+        "bot": "7ca73b26daad78d7",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1390,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed50c15a8d5f3d84",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "0x30 Keep alive",
+        "property": "payload.decoded.payload.data.bytes.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0x30 Keep alive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 320,
+        "wires": [
+            [
+                "38ebdb77647d1191",
+                "e482983fa4cb35af",
+                "7a561f856ad63e95"
+            ]
+        ]
+    },
+    {
+        "id": "f6378aae80528b7b",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set SMS Message Fetch Mail",
+        "func": "msg.payload = {\n    \"account\": global.get(\"sms_account\"),\n    \"key\": global.get(\"sms_key\"),\n    \"msg\": \"Letters or parcels have been fetch !\"\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 240,
+        "wires": [
+            [
+                "80a25554a2327c98"
+            ]
+        ]
+    },
+    {
+        "id": "80a25554a2327c98",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Send SMS",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "rest_command",
+        "service": "send_free_sms",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": " $.payload",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1370,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8813de7d4d1e5ec5",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set SMS Message Letter",
+        "func": "msg.payload = {\n    \"account\": global.get(\"sms_account\"),\n    \"key\": global.get(\"sms_key\"),\n    \"msg\": \"You have got office letter !\"\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            [
+                "80a25554a2327c98"
+            ]
+        ]
+    },
+    {
+        "id": "64070413d65b0b12",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Set SMS Message Parcel",
+        "func": "msg.payload = {\n    \"account\": global.get(\"sms_account\"),\n    \"key\": global.get(\"sms_key\"),\n    \"msg\": \"You have got parcel !\"\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 420,
+        "wires": [
+            [
+                "80a25554a2327c98"
+            ]
+        ]
+    },
+    {
+        "id": "38ebdb77647d1191",
+        "type": "function",
+        "z": "ce566b7b35f3bf90",
+        "name": "Healthy report",
+        "func": "var content = '🔋 Mailbox Keep Alive !'\n// Send healthy report on demand \nvar send_healthy_report = false;\n// Always send unhealthy report \nif (msg.payload.decoded.payload.data.bytes.status.lowBattery == true || msg.payload.decoded.payload.data.bytes.status.hardwareError == true) {\n    var content = \"⚠️ Mailbox Keep Alive issue !\\nLow Battery: \"\n        + msg.payload.decoded.payload.data.bytes.status.lowBattery\n        + \"\\nHardware Error: \" + msg.payload.decoded.payload.data.bytes.status.hardwareError;\n} else if (!send_healthy_report) {\n    return;\n}\nmsg.payload = {\n chatId: global.get('telegram_chat_id'),\n type: 'message',\n    content: content\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 320,
+        "wires": [
+            [
+                "159db5ec01c87d37"
+            ]
+        ]
+    },
+    {
+        "id": "851ac9a06976a625",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Present: true",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_present"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 1060,
+        "y": 500,
+        "wires": [
+            [
+                "1d5c973c058844e3"
+            ]
+        ]
+    },
+    {
+        "id": "1d5c973c058844e3",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Arrived",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "areaId": [],
+        "deviceId": [
+            "70d7df98fd9ef001e8e65c41c21f3c97"
+        ],
+        "entityId": [
+            "input_datetime.mailbox_arrived"
+        ],
+        "data": "{\"timestamp\": $millis() / 1000 }",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 1320,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d0858dfeb9614ec",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Low Battery",
+        "property": "msg.payload.decoded.payload.data.bytes.status.lowBattery",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 380,
+        "wires": [
+            [
+                "b01f47c017ab73fc"
+            ]
+        ]
+    },
+    {
+        "id": "dd8c57ab30f33971",
+        "type": "switch",
+        "z": "ce566b7b35f3bf90",
+        "name": "Hardware Error",
+        "property": "msg.payload.decoded.payload.data.bytes.status.hardwareError",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 420,
+        "wires": [
+            [
+                "b01f47c017ab73fc"
+            ]
+        ]
+    },
+    {
+        "id": "b01f47c017ab73fc",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Issue: true",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_status"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 790,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e482983fa4cb35af",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Health Check: true",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_keep_alive"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "3c90d79c37176c5f"
+            ]
+        ]
+    },
+    {
+        "id": "673f9c24b68cf1dc",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Present: false",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_present"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 1060,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c90d79c37176c5f",
+        "type": "ha-wait-until",
+        "z": "ce566b7b35f3bf90",
+        "name": "Wait 1438 minutes",
+        "server": "a98cb82c.b0a218",
+        "version": 2,
+        "outputs": 2,
+        "entityId": "input_boolean.mailbox_keep_alive",
+        "entityIdFilterType": "exact",
+        "property": "state",
+        "comparator": "is",
+        "value": "true",
+        "valueType": "bool",
+        "timeout": "1438",
+        "timeoutType": "num",
+        "timeoutUnits": "minutes",
+        "checkCurrentState": true,
+        "blockInputOverrides": true,
+        "outputProperties": [],
+        "entityLocation": "data",
+        "entityLocationType": "none",
+        "x": 570,
+        "y": 480,
+        "wires": [
+            [],
+            [
+                "b991a08a8d9a6824"
+            ]
+        ]
+    },
+    {
+        "id": "b991a08a8d9a6824",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Keep Alive: false",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_keep_alive"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 810,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a561f856ad63e95",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Mailbox Issue: false",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.mailbox_status"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "all",
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "8d0858dfeb9614ec",
+                "dd8c57ab30f33971"
+            ]
+        ]
+    },
+    {
+        "id": "07930195c0d23441",
+        "type": "api-call-service",
+        "z": "ce566b7b35f3bf90",
+        "name": "Alexa TTS - You have got mail",
+        "server": "a98cb82c.b0a218",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "notify",
+        "service": "alexa_media_echo_dot",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\t   \"message\":\"Vous avez du courrier !\",\t   \"data\" : { \"type\" : \"announce\"} \t}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "first",
+        "x": 1090,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40bd7ac7c7c24194",
+        "type": "mqtt-broker",
+        "name": "MQTT Borker",
+        "broker": "10.0.0.144",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "6ca73b26daad78d6",
+        "type": "telegram bot",
+        "botname": "MyBot_bot",
+        "usernames": "",
+        "chatids": "telegram_chat_id",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "a98cb82c.b0a218",
+        "type": "server",
+        "name": "Home Assistant",
+        "addon": true
+    }
+]
