@@ -75,6 +75,8 @@ First, you need to add a new device to your Helium account. Then, override the `
 
 Adeunis provides [JavaScript libraries](https://codec-adeunis.com/download) to decode all raw data in JSON format for all of these products. A simple adaptation was needed to be compatible with Helium's [JavaScript decoder function](https://github.com/vhuynen/Adeunis-Dry-Contacts-Mailbox-LoRaWAN/blob/main/source/decoder/decoder.js).
 
+Moreover, an online tool allows you to decode the raw data: [Codec Adeunis Decoder](https://codec-adeunis.com/decoder) 🚀
+
 #### Flows
 
 You will need to forward the data from the mailbox to [AWS Integration](https://docs.helium.com/console/integrations/aws-iot-core/).
