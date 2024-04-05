@@ -27,6 +27,7 @@ In other words, this module gathers all the requirements I need for this project
       - [Dry Contacts Data - Frame 0x40](#dry-contacts-data---frame-0x40)
       - [Keep Alive - Frame 0x30](#keep-alive---frame-0x30)
     - [Dashboard](#dashboard)
+  - [3D Printer support](#3d-printer-support)
   - [References](#references)
 
 ## Architecture Schema
@@ -174,6 +175,10 @@ Below, the visual of the custom button :
 | No Mail | Mail Arrived |
 |:---------------|:-----------------|
 |![flows](./docs/gallery/mailbox.png)|![flows](./docs/gallery/mailbox-up.png)|
+
+## 3D Printer support
+
+In order to prevent creating holes in my mailbox, I have modeled a magnetic [3D support](./source/3D%20Printer/Adeunis%20Mailbox%20V3.0.stl).
 
 ## References
 
