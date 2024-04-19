@@ -178,7 +178,7 @@ Below, the visual of the custom button :
 
 ## 3D Printer support
 
-In order to prevent creating holes in my mailbox, I have modeled a magnetic [3D support](./source/3D%20Printer/Adeunis%20Mailbox%20V3.0.stl).
+In order to prevent creating holes in my mailbox, I have modeled a magnetic [3D support](./source/3D%20Printer/Adeunis%20Mailbox%20V4.0.stl).
 
 ## References
 
