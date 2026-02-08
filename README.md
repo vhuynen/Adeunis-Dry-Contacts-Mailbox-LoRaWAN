@@ -28,6 +28,7 @@ In other words, this module gathers all the requirements I need for this project
       - [Keep Alive - Frame 0x30](#keep-alive---frame-0x30)
     - [Dashboard](#dashboard)
   - [3D Printer support](#3d-printer-support)
+    - [V2 Magnetic Holder (by @steuerzentrale)](#v2-magnetic-holder-by-steuerzentrale)
   - [References](#references)
 
 ## Architecture Schema
@@ -139,7 +140,7 @@ SELECT * FROM 'topic/gateway' where dev_eui = '0018BXXXXXXXXXXX'
 
 Four [entities](./source/Home%20Assistant/configuration.yaml) have been added to handle the mailbox behavior within Home Assistant. :
 
-| Name | Type | Comment |
+|Name|Type|Comment|
 |:---------------|:-----------------|:--------------|
 |mailbox_present|input_boolean|`true` if a letter or parcel has been delivered, `false` when the mailbox has been emptied.|
 |mailbox_arrived|input_datetime|The current datetime is recorded when something is deposited in the mailbox.|
@@ -172,13 +173,23 @@ A [custom button](./source/Home%20Assistant/mailbox-custom-button.yaml) allows y
 
 Below, the visual of the custom button :
 
-| No Mail | Mail Arrived |
+|No Mail|Mail Arrived|
 |:---------------|:-----------------|
 |![flows](./docs/gallery/mailbox.png)|![flows](./docs/gallery/mailbox-up.png)|
 
 ## 3D Printer support
 
-In order to prevent creating holes in my mailbox, I have modeled a magnetic [3D support](./source/3D%20Printer/Adeunis%20Mailbox%20V4.0.stl).
+To avoid drilling holes in the mailbox, two magnetic supports are available :
+
+- One for the [Dry Contacts V1](./source/3D%20Printer/Dry%20Contacts%20V1/Dry_Contacts_Holder_V1.stl) 
+- Another for the [Dry Contacts V2](./source/3D%20Printer/Dry%20Contacts%20V2/Dry_Contacts_Holder_V2.stl)
+
+🙏 A special big thanks to @steuerzentrale for the beautiful and highly practical V2 magnetic holder.
+His contribution significantly improves the mounting experience and overall usability of the project.
+
+### V2 Magnetic Holder (by @steuerzentrale)
+
+![V2 Magnetic Holder — contribution by @steuerzentrale](https://private-user-images.githubusercontent.com/75168550/546733690-412a9402-2114-4e37-a0a6-a550e8e93cb0.jpeg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzA1NzkyODksIm5iZiI6MTc3MDU3ODk4OSwicGF0aCI6Ii83NTE2ODU1MC81NDY3MzM2OTAtNDEyYTk0MDItMjExNC00ZTM3LWEwYTYtYTU1MGU4ZTkzY2IwLmpwZWc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDIwOFQxOTI5NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04MzZhZmZmNjc3NmE3MjFiYzQzYTNlMDA2YWY3ZWE5YjMzMjNlZGZlMjE5NDJjMDZiMGI1MjI1OTQxOGU5YTA2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.v0oofqhAIlrOhlRy2smIZrcWwM2-DIW19DqnoMNWG4Q)
 
 ## References
 
