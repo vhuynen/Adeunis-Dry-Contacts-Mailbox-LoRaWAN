@@ -182,7 +182,7 @@ Below, the visual of the custom button :
 To avoid drilling holes in the mailbox, two magnetic supports are available :
 
 - One for the [Dry Contacts V1](./source/3D%20Printer/Dry%20Contacts%20V1/Dry_Contacts_Holder_V1.stl) 
-- Another for the [Dry Contacts V2](./source/3D%20Printer/Dry%20Contacts%20V2/Dry_Contacts_Holder_V2.stl)
+- Another for the [Dry Contacts V2](./source/3D%20Printer/Dry%20Contacts%20V2)
 
 🙏 A special big thanks to [@steuerzentrale](https://github.com/steuerzentrale) for the beautiful and highly practical V2 magnetic holder.
 His contribution significantly improves the mounting experience and overall usability of the project.
